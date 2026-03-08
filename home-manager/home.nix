@@ -13,6 +13,13 @@
   };
 
   home.packages = with pkgs; [
+    yosys
+    virt-manager
+    virt-viewer
+    iperf3
+    nmap
+    traceroute
+    ngspice
     ncdu
     gping
     duf
