@@ -10,12 +10,14 @@
   home.sessionVariables = {
     EDITOR = "nvim";
     DOCKER_HOST = "unix:///run/user/1000/docker.sock";
+    ANTHROPIC_AUTH_TOKEN = "ollama";
+    ANTHROPIC_API_KEY = "";
+    ANTHROPIC_BASE_URL = "http://localhost:11434";
   };
 
   home.packages = with pkgs; [
+    claude-code
     yosys
-    virt-manager
-    virt-viewer
     iperf3
     nmap
     traceroute
@@ -23,10 +25,8 @@
     ncdu
     gping
     duf
-    octave
-    slack
+    octave 
     typst
-    nodejs
     verible
     verilator
     fastfetch
@@ -35,7 +35,11 @@
     nerd-fonts.fira-code
     nerd-fonts.ubuntu-mono
     cmake
+    # GUI
+    virt-manager
+    virt-viewer
     gns3-gui
+    slack
   ];
 
   services = {
@@ -54,15 +58,16 @@
         };
       };
     };
+    ollama.enable = true;
     ssh-agent.enable = true;
-    #    podman.enable = true;
+    podman.enable = true;
   };
 
   programs = {
     # Allow home-manager to manage itself
     home-manager.enable = true;
-
-    # Git
+    
+    # Terminal
     git = {
       enable = true;
       signing = {
@@ -75,10 +80,6 @@
         user.name = "Vasilis Mylonas";
       };
     };
-    lazygit.enable = true;
-    gh.enable = true;
-
-    # Shell
     starship = {
       enable = true;
       enableZshIntegration = true;
@@ -101,6 +102,8 @@
         neofetch = "fastfetch";
       };
     };
+    lazygit.enable = true;
+    gh.enable = true;
     zsh.enable = true;
     fzf.enable = true;
     bat.enable = true;
@@ -109,21 +112,21 @@
     btop.enable = true;
     neovim.enable = true;
     fd.enable = true;
-    #    lazydocker.enable = true;
-    man.enable = true;
-
-    # GUI
-    vesktop.enable = true;
-    vscode.enable = true;
-    onlyoffice.enable = true; # TODO: this isnt very good in kubuntu
-    obsidian.enable = true;
-    obsidian.vaults."Vault".target = "Documents/Vault";
+    lazydocker.enable = true;
 
     # Programming
+    man.enable = true;
     go.enable = true;
     npm.enable = true;
     cargo.enable = true;
     uv.enable = true;
+
+    # GUI
+    vesktop.enable = true;
+    vscode.enable = true;
+    #onlyoffice.enable = true; # TODO: this isnt very good in kubuntu
+    obsidian.enable = true;
+    obsidian.vaults."Vault".target = "Documents/Vault";
   };
 
   home.file.".config/starship.toml".source = ./starship.toml;
