@@ -16,7 +16,7 @@
   };
 
   home.packages = with pkgs; [
-    claude-code
+    postgresql
     yosys
     iperf3
     nmap
@@ -60,7 +60,7 @@
     };
     ollama.enable = true;
     ssh-agent.enable = true;
-    podman.enable = true;
+#    podman.enable = true; # NOTE: Prefer docker (native install)
   };
 
   programs = {
@@ -120,11 +120,12 @@
     npm.enable = true;
     cargo.enable = true;
     uv.enable = true;
+    claude-code.enable = true;
 
     # GUI
     vesktop.enable = true;
     vscode.enable = true;
-    #onlyoffice.enable = true; # TODO: this isnt very good in kubuntu
+    #onlyoffice.enable = true; # NOTE: this isnt very good in kubuntu
     obsidian.enable = true;
     obsidian.vaults."Vault".target = "Documents/Vault";
   };
