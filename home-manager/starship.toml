@@ -20,6 +20,7 @@ $nodejs\
 $nim\
 $rust\
 $scala\
+$nix_shell\
 [](fg:#86BBD8 bg:#06969A)\
 $docker_context\
 [](fg:#06969A bg:#33658A)\
@@ -142,3 +143,12 @@ disabled = false
 time_format = "%R" # Hour:Minute Format
 style = "bg:#33658A"
 format = '[ $time ]($style)'
+
+[nix_shell]
+disabled = false
+style = "bg:#86BBD8"
+impure_msg = 'impure !'
+pure_msg = 'pure'
+unknown_msg = '???'
+symbol = '☃️'
+format = '[ $symbol $state( \($name\)) ]($style)'
