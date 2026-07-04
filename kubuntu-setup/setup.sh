@@ -1,34 +1,25 @@
 #!/usr/bin/bash
 
+# Exit immediately if a command exits with a non-zero status
+set -e
+
+# Install pre-requisites
+sudo apt update
+sudo apt install -y curl timeshift
+
+# TODO: make sure to enable quota on btrfs for timeshift to show snapshot sizes
+
 # Install nix
-sudo apt install curl timeshift
 sh <(curl --proto '=https' --tlsv1.2 -L https://nixos.org/nix/install) --daemon
 
-# TODO: update nix config file to allow nix profile
+# Enable flakes and nix-command
+mkdir -p ~/.config/nix
+echo "experimental-features = nix-command flakes" | sudo tee -a /etc/nix/nix.conf > /dev/null
 
-# Install home-manager
-nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manage
-nix-channel --update
-nix-shell '<home-manager>' -A install
+# Source the Nix profile so the shell knows about the 'nix' command right now
+if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
+  . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
+fi
 
-home-manager switch
-
-# FIX for Kubuntu: make desktop files executable
-find ~/.nix-profile/share/applications/ -iname '*.desktop' | xargs -n 1 readlink | sudo xargs chmod +x
-
-# Purge snap
-sudo apt purge -y snapd
-
-# Install real firefox
-sudo add-apt-repository -y ppa:mozillateam/ppa
-sudo apt update
-cat <<EOF | sudo tee /etc/apt/preferences.d/mozillateamppa > /dev/null
-Package: *
-Pin: release o=LP-PPA-mozillateam
-Pin-Priority: 1001
-EOF
-sudo apt install -y firefox
-sudo apt-mark hold firefox
-
-# Codecs
-sudo apt install libavcodec-extra -y
+cd home-manager
+nix run github:nix-community/home-manager -- switch --flake .#vasilis
