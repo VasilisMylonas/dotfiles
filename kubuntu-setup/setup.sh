@@ -5,7 +5,7 @@ set -e
 
 # Install pre-requisites
 sudo apt update
-sudo apt install -y curl timeshift
+sudo apt install -y curl timeshift build-essential
 
 # TODO: make sure to enable quota on btrfs for timeshift to show snapshot sizes
 
@@ -23,3 +23,6 @@ fi
 
 cd home-manager
 nix run github:nix-community/home-manager -- switch --flake .#vasilis
+
+# TODO: docker
+
