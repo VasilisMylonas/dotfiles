@@ -113,7 +113,11 @@
     bat.enable = true;
     htop.enable = true;
     eza.enable = true;
-    neovim.enable = true;
+    neovim = {
+    	enable = true;
+	withRuby = true;
+	withPython3 = true;
+    };
     fd.enable = true;
     man.enable = true;
     #    go.enable = true;
@@ -125,8 +129,6 @@
       enableBashIntegration = true;
     };
     claude-code.enable = true;
-
-    # NOTE: slack, vesktop, vscode, obsidian, docker installed natively
   };
   home.file.".config/starship.toml".source = ./starship.toml;
 }
