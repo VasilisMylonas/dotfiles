@@ -11,9 +11,37 @@
   home.sessionVariables = {
     EDITOR = "nvim";
     DOCKER_HOST = "unix:///run/user/1000/docker.sock";
+    LANG = "en_US.UTF-8";
+    LC_ALL = "en_US.UTF-8";
   };
 
+  home.sessionPath = [
+    "${config.home.homeDirectory}/opt/openEMS/bin"
+    "${config.home.homeDirectory}/.local/bin"
+  ];
+
   home.packages = with pkgs; [
+    picocom
+    esptool
+    #   dfu-util
+    #   openocd
+    #   z3
+    #   patchelf
+    #   ccache
+    #   yosys
+    #   iverilog
+    #   nextpnr
+    #   icestorm
+    #   cmake
+    #   ninja
+    #   gnumake
+    #   flex
+    #   bison
+    #   gperf
+    #   gengetopt
+    #   help2man
+    #   libtool
+
     #    scrcpy
     #    clang
     #    clang-tools
@@ -26,6 +54,7 @@
     # verilator
     #    traceroute
     #ngspice
+    nodejs
     ncdu
     duf
     typst
@@ -54,6 +83,10 @@
       enableDefaultConfig = false;
 
       matchBlocks = {
+        "github.com" = {
+          identityFile = "~/.ssh/id_ed25519_github";
+          addKeysToAgent = "yes";
+        };
         "hpc" = {
           hostname = "scgroup3.ceid.upatras.gr";
           user = "hpcgrp29";
@@ -114,9 +147,9 @@
     htop.enable = true;
     eza.enable = true;
     neovim = {
-    	enable = true;
-	withRuby = true;
-	withPython3 = true;
+      enable = true;
+      withRuby = true;
+      withPython3 = true;
     };
     fd.enable = true;
     man.enable = true;
