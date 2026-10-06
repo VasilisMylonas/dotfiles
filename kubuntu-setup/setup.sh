@@ -24,6 +24,8 @@ install_packages() {
     gh fzf bat htop eza neovim fd-find direnv duf ncdu fastfetch traceroute iperf3 \
     kicad kicad-packages3d yosys iverilog verilator ngspice \
     fonts-firacode fonts-ubuntu \
+
+  systemctl enable --user syncthing
   # TODO verible
   # TODO Embedded???
   #  sudo apt install dfu-util esptool openocd picocom cmake clang clang-tools ninja ccache
