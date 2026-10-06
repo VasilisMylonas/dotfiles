@@ -20,7 +20,7 @@ install_nix() {
 }
 
 install_packages() {
-  sudo apt install -y syncthing syncthingtray syncthingtray-kde-plasma \
+  sudo apt install -y syncthing syncthingtray \
     gh fzf bat htop eza neovim fd-find direnv duf ncdu fastfetch traceroute iperf3 \
     kicad kicad-packages3d yosys iverilog verilator ngspice \
     fonts-firacode fonts-ubuntu \
