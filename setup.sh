@@ -1,24 +1,6 @@
 #!/usr/bin/env bash
 set -Eeuo pipefail
 
-install_nix() {
-  # Install nix
-  sh <(curl --proto '=https' --tlsv1.2 -L https://nixos.org/nix/install) --daemon
-
-  # Enable flakes and nix-command
-  mkdir -p ~/.config/nix
-  echo "experimental-features = nix-command flakes" | sudo tee -a /etc/nix/nix.conf > /dev/null
-
-  # Source the Nix profile so the shell knows about the 'nix' command right now
-  if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
-  . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
-  fi
-
-  # Run home-manager
-  cd home-manager
-  nix run github:nix-community/home-manager -- switch --flake .#vasilis
-}
-
 install_packages() {
   sudo apt install -y syncthing syncthingtray \
     gh fzf bat htop eza neovim fd-find direnv duf ncdu fastfetch traceroute iperf3 \
@@ -94,10 +76,14 @@ install_fonts() {
 configure() {
   mkdir -p ~/.ssh ~/.config
 
-  cp ssh-config ~/.ssh/config
-  cp gitconfig ~/.gitconfig
-  cp bashrc ~/.bashrc
-  cp starship.toml ~/.config/starship.toml
+  local dir
+  dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+  # ssh refuses configs with unexpected ownership/permissions, so copy it
+  cp "$dir/ssh-config" ~/.ssh/config
+  ln -sfn "$dir/gitconfig" ~/.gitconfig
+  ln -sfn "$dir/bashrc" ~/.bashrc
+  ln -sfn "$dir/starship.toml" ~/.config/starship.toml
 
   chmod 700 ~/.ssh
   chmod 600 ~/.ssh/config
@@ -114,6 +100,5 @@ command -v starship >/dev/null 2>&1 && echo "==> Starship already installed, ski
 command -v uv >/dev/null 2>&1 && echo "==> UV already installed, skipping" || install_uv
 echo "==> Installing packages" && install_packages
 echo "==> Installing fonts" && install_fonts
-# install_nix
 
 echo "==> Configuring" && configure
