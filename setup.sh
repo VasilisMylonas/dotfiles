@@ -3,7 +3,7 @@ set -Eeuo pipefail
 
 install_packages() {
   sudo apt install -y syncthing syncthingtray \
-    gh fzf bat htop eza neovim fd-find direnv duf ncdu fastfetch traceroute iperf3 \
+    gh stow fzf bat htop eza neovim fd-find direnv duf ncdu fastfetch traceroute iperf3 \
     kicad kicad-packages3d yosys iverilog verilator ngspice \
     fonts-firacode fonts-ubuntu \
 
@@ -81,9 +81,8 @@ configure() {
 
   # ssh refuses configs with unexpected ownership/permissions, so copy it
   cp "$dir/ssh-config" ~/.ssh/config
-  ln -sfn "$dir/gitconfig" ~/.gitconfig
-  ln -sfn "$dir/bashrc" ~/.bashrc
-  ln -sfn "$dir/starship.toml" ~/.config/starship.toml
+  # Each top-level package directory mirrors $HOME
+  stow --dir "$dir" --target "$HOME" --restow bash git starship
 
   chmod 700 ~/.ssh
   chmod 600 ~/.ssh/config
