@@ -67,6 +67,10 @@ install_ollama() {
   curl -fsSL https://ollama.com/install.sh | sh
 }
 
+install_opencode() {
+  curl -fsSL https://opencode.ai/v2/install | bash
+}
+
 install_fonts() {
   mkdir -p ~/.local/share/fonts
   curl -L https://github.com/ryanoasis/nerd-fonts/releases/latest/download/FiraCode.zip -o /tmp/FiraCode.zip
@@ -100,6 +104,8 @@ command -v docker >/dev/null 2>&1 && echo "==> Docker already installed, skippin
 command -v claude >/dev/null 2>&1 && echo "==> Claude already installed, skipping" || install_claude
 command -v starship >/dev/null 2>&1 && echo "==> Starship already installed, skipping" || install_starship
 command -v uv >/dev/null 2>&1 && echo "==> UV already installed, skipping" || install_uv
+command -v opencode >/dev/null 2>&1 && echo "==> OpenCode already installed, skipping" || install_opencode
+command -v ollama >/dev/null 2>&1 && echo "==> Ollama already installed, skipping" || install_ollama
 echo "==> Installing packages" && install_packages
 echo "==> Installing fonts" && install_fonts
 
