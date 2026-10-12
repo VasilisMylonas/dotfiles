@@ -18,7 +18,6 @@ install_packages() {
 }
 
 install_docker() {
-
   # Add Docker's official GPG key:
   sudo apt update
   sudo apt install ca-certificates curl
@@ -62,6 +61,10 @@ install_starship() {
 
 install_uv() {
   curl -LsSf https://astral.sh/uv/install.sh | sh
+}
+
+install_ollama() {
+  curl -fsSL https://ollama.com/install.sh | sh
 }
 
 install_fonts() {

@@ -10,6 +10,11 @@ if command -v starship >/dev/null 2>&1; then
     eval "$(starship init bash)"
 fi
 
+# Direnv
+if command -v direnv >/dev/null 2>&1; then
+    eval "$(direnv hook bash)"
+fi
+
 # Environment
 export EDITOR="nvim"
 export DOCKER_HOST="unix://${XDG_RUNTIME_DIR}/docker.sock"
@@ -27,6 +32,7 @@ alias vim='nvim'
 alias neofetch='fastfetch'
 alias cat='batcat --style=plain --paging=never'
 alias df='duf'
+alias less='batcat --style=plain --paging=auto'
 
-# Starship
-eval "$(starship init bash)"
+# opencode
+export PATH=/home/vasilis/.opencode/bin:$PATH
