@@ -34,6 +34,16 @@ alias cat='batcat --style=plain --paging=never'
 alias df='duf'
 alias less='batcat --style=plain --paging=auto'
 
+# Wake-on-LAN through the router; the MAC comes from its static DHCP lease named "*desktop*"
+wake-desktop() {
+  ssh router sh -s <<'EOF'
+host=$(uci show dhcp | sed -n "s/^dhcp\.\(.*\)\.name='.*desktop.*'$/\1/p" | head -1)
+mac=$(uci -q get "dhcp.$host.mac")
+[ -n "$mac" ] || { echo "No static lease named *desktop* on the router" >&2; exit 1; }
+etherwake -i br-lan "$mac" && echo "Magic packet sent to $mac"
+EOF
+}
+
 # opencode
 export PATH=$HOME/.opencode/bin:$PATH
 
