@@ -35,4 +35,6 @@ alias df='duf'
 alias less='batcat --style=plain --paging=auto'
 
 # opencode
-export PATH=/home/vasilis/.opencode/bin:$PATH
+export PATH=$HOME/.opencode/bin:$PATH
+
+alias claude2='CLAUDE_CONFIG_DIR=~/.claude-second claude'
