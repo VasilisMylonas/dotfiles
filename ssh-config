@@ -2,11 +2,6 @@ Host github.com
     IdentityFile ~/.ssh/id_ed25519_github
     AddKeysToAgent yes
 
-Host hpc
-    HostName scgroup3.ceid.upatras.gr
-    User hpcgrp29
-    ForwardAgent yes
-
 Host sisman
     HostName 150.140.141.66
     User up1100643
