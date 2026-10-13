@@ -17,3 +17,11 @@ Host kamino
     IdentityFile ~/.ssh/id_ed25519_kamino
     AddKeysToAgent yes
     ForwardAgent yes
+
+Host router
+    HostName openwrt.lan
+    User root
+    IdentitiesOnly yes
+    IdentityFile ~/.ssh/id_ed25519_router
+    AddKeysToAgent yes
+    ForwardAgent yes
