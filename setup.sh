@@ -96,16 +96,6 @@ configure() {
   chmod 600 ~/.ssh/config
 }
 
-restore_thunderbird() {
-  local dir
-  dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-
-  # Account data lives outside this public repo (Syncthing); see thunderbird-accounts.py.
-  # Skips with a note if the export isn't there; never fails the whole setup.
-  python3 "$dir/thunderbird-accounts.py" import --optional ||
-    echo "==> Thunderbird account restore skipped (see message above)"
-}
-
 sudo apt update
 sudo apt install -y curl timeshift build-essential python3-venv
 
