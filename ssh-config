@@ -25,3 +25,12 @@ Host router
     IdentityFile ~/.ssh/id_ed25519_router
     AddKeysToAgent yes
     ForwardAgent yes
+
+Host desktop
+    HostName vasilis-desktop.lan
+    User "Vasilis Mylonas"
+    IdentitiesOnly yes
+    AddKeysToAgent yes
+    ForwardAgent yes
+    RequestTTY yes
+    RemoteCommand pwsh.exe -NoLogo
